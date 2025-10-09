@@ -13,7 +13,7 @@ void main() async {
     debugPrint('Error loading .env file: $e');
   }
   // Inicializar dotenv para cargar las variables de entorno
-  // await dotenv.load(fileName: ".env");
+  // await dotenv.load(fileName: ".env");  
 
   runApp(const MyApp());
 }
