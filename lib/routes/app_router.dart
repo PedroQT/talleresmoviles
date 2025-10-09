@@ -3,6 +3,8 @@ import 'package:parqueadero_2025_g2/views/ciclo_vida/ciclo_vida_screen.dart';
 import 'package:parqueadero_2025_g2/views/paso_parametros/detalle_screen.dart';
 import 'package:parqueadero_2025_g2/views/paso_parametros/paso_parametros_screen.dart';
 
+import '../views/comidas/comidas_detail_view.dart';
+import '../views/comidas/comidas_list_view.dart';
 import '../views/future/future_view.dart';
 import '../views/home/home_screen.dart';
 import '../views/isolate/isolate_view.dart';
@@ -66,6 +68,22 @@ final GoRouter appRouter = GoRouter(
         final name =
             state.pathParameters['name']!; // se captura el nombre del pokemon.
         return PokemonDetailView(name: name);
+      },
+    ),
+    //!Ruta para COMIDAS
+    GoRoute(
+      path: '/comidas',
+      name: 'comidas',
+      builder: (context, state) => const ComidasListView(),
+    ),
+    //!Ruta para detalle de comidas
+    GoRoute(
+      path: '/comida/:idMeal', // se recibe el id de la comida como parametro
+      name: 'comida_detail',
+      builder: (context, state) {
+        final idMeal =
+            state.pathParameters['idMeal']!; // se captura el id de la comida.
+        return ComidasDetailView(idMeal: idMeal);
       },
     ),
   ],

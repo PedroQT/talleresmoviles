@@ -101,6 +101,13 @@ class CustomDrawer extends StatelessWidget {
               context.go('/pokemon');
             },
           ),
+          ListTile(
+            leading: const Icon(Icons.restaurant),
+            title: const Text('COMIDAS'),
+            onTap: () {
+              context.go('/comidas');
+            },
+          ),
         ],
       ),
     );
