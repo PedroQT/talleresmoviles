@@ -14,6 +14,7 @@ class EvidenceView extends StatefulWidget {
 class _EvidenceViewState extends State<EvidenceView> {
   String? name;
   String? email;
+  String? token;
   bool hasToken = false;
   final AuthService _authService = AuthService();
 
@@ -25,11 +26,12 @@ class _EvidenceViewState extends State<EvidenceView> {
 
   Future<void> _loadData() async {
     final userData = await _authService.getUserData();
-    final tokenPresent = await _authService.hasToken();
+    final tokenValue = await const FlutterSecureStorage().read(key: 'access_token');
     setState(() {
       name = userData['name'];
       email = userData['email'];
-      hasToken = tokenPresent;
+      token = tokenValue;
+      hasToken = tokenValue != null && tokenValue.isNotEmpty;
     });
   }
 
@@ -52,26 +54,64 @@ class _EvidenceViewState extends State<EvidenceView> {
       appBar: AppBar(title: const Text('Evidencia de sesión')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('Nombre: ${name ?? "No disponible"}'),
-            Text('Email: ${email ?? "No disponible"}'),
-            const SizedBox(height: 20),
-            Row(
-              children: [
-                const Text('Estado de sesión: '),
-                hasToken
-                    ? const Text('token presente', style: TextStyle(color: Colors.green))
-                    : const Text('sin token', style: TextStyle(color: Colors.red)),
-              ],
-            ),
-            const SizedBox(height: 40),
-            ElevatedButton(
-              onPressed: hasToken ? _logout : null,
-              child: const Text('Cerrar sesión'),
-            ),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Card(
+                elevation: 4,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('SharedPreferences', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                      const SizedBox(height: 8),
+                      ListTile(
+                        leading: const Icon(Icons.person),
+                        title: Text('Nombre'),
+                        subtitle: Text(name ?? 'No disponible'),
+                      ),
+                      ListTile(
+                        leading: const Icon(Icons.email),
+                        title: Text('Email'),
+                        subtitle: Text(email ?? 'No disponible'),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+              Card(
+                elevation: 4,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('SecureStorage', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                      const SizedBox(height: 8),
+                      ListTile(
+                        leading: const Icon(Icons.vpn_key),
+                        title: Text('Token JWT'),
+                        subtitle: Text(token ?? 'No disponible', style: const TextStyle(fontSize: 12)),
+                        trailing: hasToken
+                            ? const Icon(Icons.check_circle, color: Colors.green)
+                            : const Icon(Icons.cancel, color: Colors.red),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 40),
+              ElevatedButton(
+                onPressed: hasToken ? _logout : null,
+                child: const Text('Cerrar sesión'),
+              ),
+            ],
+          ),
         ),
       ),
     );
