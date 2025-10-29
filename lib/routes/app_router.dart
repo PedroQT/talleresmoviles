@@ -10,8 +10,12 @@ import '../views/home/home_screen.dart';
 import '../views/isolate/isolate_view.dart';
 import '../views/pokemons/pokemon_detail_view.dart';
 import '../views/pokemons/pokemon_list_view.dart';
+import '../views/evidence/evidence_view.dart';
+import '../views/login/login_view.dart';
+import '../views/login/register_view.dart';
 
 final GoRouter appRouter = GoRouter(
+  initialLocation: '/login',
   routes: [
     GoRoute(
       path: '/',
@@ -85,6 +89,24 @@ final GoRouter appRouter = GoRouter(
             state.pathParameters['idMeal']!; // se captura el id de la comida.
         return ComidasDetailView(idMeal: idMeal);
       },
+    ),
+    // Ruta para evidencia de sesión
+    GoRoute(
+      path: '/evidence',
+      name: 'evidence',
+      builder: (context, state) => const EvidenceView(),
+    ),
+    // Ruta para login
+    GoRoute(
+      path: '/login',
+      name: 'login',
+      builder: (context, state) => const LoginView(),
+    ),
+    // Ruta para registro
+    GoRoute(
+      path: '/register',
+      name: 'register',
+      builder: (context, state) => const RegisterView(),
     ),
   ],
 );
