@@ -22,6 +22,7 @@ class AuthService {
         'password': password,
       }),
     );
+    print('Respuesta registro: ${response.body}');
     return jsonDecode(response.body);
   }
 
@@ -40,13 +41,16 @@ class AuthService {
       }),
     );
     final data = jsonDecode(response.body);
+    print('Respuesta login: $data');
     if (data['success'] == true) {
       // Guardar datos no sensibles
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString('name', data['user']['name']);
       await prefs.setString('email', data['user']['email']);
+      print('Guardado en shared_preferences: name=${data['user']['name']}, email=${data['user']['email']}');
       // Guardar token sensible
       await _secureStorage.write(key: 'access_token', value: data['token']);
+      print('Guardado en flutter_secure_storage: access_token=${data['token']}');
     }
     return data;
   }
@@ -68,9 +72,10 @@ class AuthService {
 
   // Cerrar sesión
   Future<void> logout() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.remove('name');
-    await prefs.remove('email');
-    await _secureStorage.delete(key: 'access_token');
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.remove('name');
+  await prefs.remove('email');
+  await _secureStorage.delete(key: 'access_token');
+  print('Datos eliminados de shared_preferences y flutter_secure_storage al cerrar sesión');
   }
 }
