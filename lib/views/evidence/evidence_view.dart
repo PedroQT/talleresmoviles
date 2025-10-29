@@ -96,7 +96,9 @@ class _EvidenceViewState extends State<EvidenceView> {
                       ListTile(
                         leading: const Icon(Icons.vpn_key),
                         title: Text('Token JWT'),
-                        subtitle: Text(token ?? 'No disponible', style: const TextStyle(fontSize: 12)),
+                        subtitle: hasToken
+                            ? const Text('Presente', style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold))
+                            : const Text('No disponible', style: TextStyle(color: Colors.red)),
                         trailing: hasToken
                             ? const Icon(Icons.check_circle, color: Colors.green)
                             : const Icon(Icons.cancel, color: Colors.red),
