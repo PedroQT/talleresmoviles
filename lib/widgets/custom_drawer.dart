@@ -108,6 +108,14 @@ class CustomDrawer extends StatelessWidget {
               context.go('/comidas');
             },
           ),
+          ListTile(
+            leading: const Icon(Icons.verified_user),
+            title: const Text('Evidencia de sesión'),
+            onTap: () {
+              context.go('/evidence');
+              Navigator.pop(context);
+            },
+          ),
         ],
       ),
     );
