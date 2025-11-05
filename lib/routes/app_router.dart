@@ -1,4 +1,6 @@
 import 'package:go_router/go_router.dart';
+import 'package:parqueadero_2025_g2/views/categoria_fb/categoria_fb_form_view.dart';
+import 'package:parqueadero_2025_g2/views/categoria_fb/categoria_fb_list_view.dart';
 import 'package:parqueadero_2025_g2/views/ciclo_vida/ciclo_vida_screen.dart';
 import 'package:parqueadero_2025_g2/views/paso_parametros/detalle_screen.dart';
 import 'package:parqueadero_2025_g2/views/paso_parametros/paso_parametros_screen.dart';
@@ -13,6 +15,8 @@ import '../views/pokemons/pokemon_list_view.dart';
 import '../views/evidence/evidence_view.dart';
 import '../views/login/login_view.dart';
 import '../views/login/register_view.dart';
+import '../views/universidades/universidades_list_view.dart';
+import '../views/universidades/universidad_form_view.dart';
 
 final GoRouter appRouter = GoRouter(
   initialLocation: '/login',
@@ -107,6 +111,43 @@ final GoRouter appRouter = GoRouter(
       path: '/register',
       name: 'register',
       builder: (context, state) => const RegisterView(),
+    ),
+    GoRoute(
+    path: '/categoriasFirebase',
+    name: 'categoriasFirebase',
+    builder: (_, __) => const CategoriaFbListView(),
+    ),
+    GoRoute(
+    path: '/categoriasfb/create',
+    name: 'categoriasfb.create',
+    builder: (context, state) => const CategoriaFbFormView(),
+    ),
+    GoRoute(
+    path: '/categoriasfb/edit/:id',
+    name: 'categorias.edit',
+    builder: (context, state) {
+    final id = state.pathParameters['id']!;
+    return CategoriaFbFormView(id: id);
+    },
+    ),
+    // Rutas para Universidades
+    GoRoute(
+      path: '/universidades',
+      name: 'universidades',
+      builder: (context, state) => const UniversidadesListView(),
+    ),
+    GoRoute(
+      path: '/universidades/create',
+      name: 'universidades.create',
+      builder: (context, state) => const UniversidadFormView(),
+    ),
+    GoRoute(
+      path: '/universidades/edit/:id',
+      name: 'universidades.edit',
+      builder: (context, state) {
+        final id = state.pathParameters['id']!;
+        return UniversidadFormView(id: id);
+      },
     ),
   ],
 );
