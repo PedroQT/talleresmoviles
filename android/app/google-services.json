@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "971679369259",
+    "project_id": "taller3-2cbc0",
+    "storage_bucket": "taller3-2cbc0.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:971679369259:android:a479d1a0af6c3b4bb7c26e",
+        "android_client_info": {
+          "package_name": "com.example.parqueadero_2025_g2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChrrQE_eVbeQIw9JQkXSWqAHH6s003dj4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
